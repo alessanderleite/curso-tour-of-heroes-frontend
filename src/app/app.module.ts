@@ -6,11 +6,9 @@ import { AppComponent } from './app.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MaterialModule } from './material/material.module';
+import { CoreModule } from './core/core.module';
 
 
 @NgModule({
@@ -18,15 +16,14 @@ import { MaterialModule } from './material/material.module';
     AppComponent,
     HeroesComponent,
     HeroDetailComponent,
-    MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
-    MaterialModule,
+
+    CoreModule,
     AppRoutingModule
   ],
   providers: [],

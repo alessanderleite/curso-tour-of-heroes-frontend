@@ -2,7 +2,7 @@
   "heroes": [
     {
       "id": 1,
-      "name": "           Wolverine"
+      "name": "Wolverine"
     },
     {
       "id": 2,
@@ -39,6 +39,14 @@
     {
       "id": 10,
       "name": "Capitão América"
+    },
+    {
+      "name": "The Flash",
+      "id": 11
+    },
+    {
+      "name": "Alessander Valério Diniz Leite",
+      "id": 12
     }
   ]
 }

@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { finalize, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Hero } from '../models/hero.model';
-import { LoadingService } from './loading.service';
 import { MessageService } from './message.service';
 
 @Injectable({
@@ -19,29 +18,42 @@ export class HeroService {
 
   // GET /heroes
   getAll(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.heroesUrl).pipe(
-      tap((heroes) => this.log(`fetched ${heroes.length} hero(es)`)),
-    );
+    return this.http
+      .get<Hero[]>(this.heroesUrl)
+      .pipe(tap((heroes) => this.log(`fetched ${heroes.length} hero(es)`)));
   }
 
   // GET /heroes/id
   getOne(id: number): Observable<Hero> {
-    return this.http.get<Hero>(`${this.heroesUrl}/${id}`).pipe(
-      tap((hero) => this.log(`fetched hero id=${id} and name=${hero.name}`))
-    );
+    return this.http
+      .get<Hero>(this.getUrl(id))
+      .pipe(tap((hero) => this.log(`fetched ${this.descAttributes(hero)}`)));
 
+  }
+
+  // POST /heroes
+  create(hero: Hero): Observable<Hero> {
+    return this.http
+      .post<Hero>(this.heroesUrl, hero)
+      .pipe(tap((hero) =>this.log(`created ${this.descAttributes(hero)}`)));
   }
 
   // PUT /heroes/id
   update(hero: Hero): Observable<Hero> {
-    return this.http.put<Hero>(`${this.heroesUrl}/${hero.id}`, hero)
-    .pipe(
-      tap((hero) =>
-        this.log(`updated hero id=${hero.id} and name=${hero.name}`))
-    );
+    return this.http
+      .put<Hero>(this.getUrl(hero.id), hero)
+      .pipe(tap((hero) => this.log(`updated ${this.descAttributes(hero)}`)));
+  }
+
+  private descAttributes(hero: Hero): string {
+    return `Hero ID=${hero.id} and Name=${hero.name}`;
   }
 
   private log(message: string): void {
     this.messageService.add(`HeroService: ${message}`);
+  }
+
+  private getUrl(id: number): string {
+    return `${this.heroesUrl}/${id}`;
   }
 }

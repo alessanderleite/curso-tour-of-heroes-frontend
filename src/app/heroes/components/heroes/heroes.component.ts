@@ -23,9 +23,7 @@ export class HeroesComponent implements OnInit {
   }
 
   getHeroes(): void {
-    this.heroService.getAll().subscribe(
-      (heroes) => (this.heroes = heroes)
-    );
+    this.heroService.getAll().subscribe((heroes) => (this.heroes = heroes));
   }
 
   delete(hero: Hero): void {
@@ -41,10 +39,13 @@ export class HeroesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       if (result) {
         this.heroService.delete(hero).subscribe(() => this.getHeroes());
       };
     });
+  }
+
+  onSelected(hero: Hero): void {
+    this.delete(hero);
   }
 }
